@@ -1,0 +1,49 @@
+<!DOCTYPE node PUBLIC "-//freedesktop//DTD D-BUS Object Introspection 1.0//EN" "http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd">
+<node>
+  <!--
+      org.gnome.DisplayManager.RemoteDisplay:
+      @short_description: A object representing a headless display
+
+      A remote display is similar to a regular display typically accessed via
+      physical input devices and monitors, but where the primary access is done
+      via a remote desktop protocol.
+
+      A remote display can be created from three different locations.
+
+      * A remote display that represents a headless login greeter session is
+        created via
+        :ref:`org.gnome.DisplayManager.RemoteDisplayFactory.CreateRemoteDisplay`.
+
+      * A remote display that represents a headless user session is created
+        after a user has logged in from a remote greeter session display, if
+        there is no existing user session.
+
+      * A remote display that represents a headless user session is created via
+        :ref:`org.gnome.DisplayManager.RemoteDisplayFactory.CreateUserDisplay.
+  -->
+  <interface name="org.gnome.DisplayManager.RemoteDisplay">
+    <!--
+        RemoteId:
+
+        A globally unique identifier associated with this remote display.
+
+        For remote displays created from
+        :ref:`org.gnome.DisplayManager.RemoteDisplayFactory.CreateRemoteDisplay`.
+        it is directly set from the remote ID set during that call.
+
+        For remote displays created from logging in using a greeter remote
+        display, the remote ID is inherited from that greeter remote display.
+
+        For existing remote displays reused when a user logs in via a new
+        greeter remote display, the remote ID is changed to the one used in the
+        greeter remote display.
+    -->
+    <property name="RemoteId" type="o" access="read"/>
+
+    <!--
+        A session identifier for the session the display runs with, as defined by
+        systemd-logind.
+    -->
+    <property name="SessionId" type="s" access="read"/>
+  </interface>
+</node>
